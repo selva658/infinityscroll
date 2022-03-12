@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Infinity Scrolling</title>
+    <style>
+      h1 {
+        text-align: center;
+      }
+      #scroll {
+        border: 10px solid rgb(51, 1, 1);
+        border-radius: 5px;
+        height: 60vh;
+        width: 420px;
+        overflow: scroll;
+        text-align: center;
+        margin: auto;
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Infinity Scrolling</h1>
+    <div id="scroll"></div>
+  </body>
+</html>
+<script>
+  let count = 1;
+  let showData = [
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+    "Masai",
+  ];
+  const fetchData = () => {
+    showData.map((item) => {
+      let h3 = document.createElement("h3");
+      h3.textContent = `${item}-${count}`;
+      ++count;
+      document.querySelector("#scroll").append(h3);
+    });
+  };
+
+  const debouncing = (bouncer, delay) => {
+    return function () {
+      setTimeout(() => {
+        bouncer();
+      }, delay);
+    };
+  };
+
+  let bouncer = debouncing(fetchData, 400);
+  bouncer();
+
+  let container = document.querySelector("#scroll");
+  container.addEventListener("scroll", () => {
+    if (container.offsetHeight + container.scrollTop >= container.scrollHeight)
+      bouncer();
+  });
+</script>
